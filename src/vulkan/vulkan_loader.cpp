@@ -10,25 +10,15 @@
 namespace dxvk::vk {
 
   static std::pair<HMODULE, PFN_vkGetInstanceProcAddr> loadVulkanLibrary() {
-#ifdef _WIN32
     static const std::array<const char*, 2> dllNames = {{
+#ifdef _WIN32
       "winevulkan.dll",
       "vulkan-1.dll",
-    }};
-#elif defined(__APPLE__)
-    // macOS: try the Vulkan loader (from Vulkan SDK) and MoltenVK directly.
-    // LoadLibraryA() maps to dlopen() on non-Windows DXVK native builds.
-    static const std::array<const char*, 3> dllNames = {{
-      "libvulkan.dylib",
-      "libvulkan.1.dylib",
-      "libMoltenVK.dylib",
-    }};
 #else
-    static const std::array<const char*, 2> dllNames = {{
       "libvulkan.so",
       "libvulkan.so.1",
-    }};
 #endif
+    }};
 
     for (auto dllName : dllNames) {
       HMODULE library = LoadLibraryA(dllName);
