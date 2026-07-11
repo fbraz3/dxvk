@@ -22,8 +22,12 @@ namespace dxvk::wsi {
     int w = 0;
     int h = 0;
 
-    if (!SDL_GetWindowSize(window, &w, &h))
-      Logger::err(str::format("SDL3 WSI: SDL_GetWindowSize: ", SDL_GetError()));
+    // GeneralsX macOS HiDPI: the swapchain and present path must be sized in PIXELS,
+    // not points. On a Retina display SDL_GetWindowSize returns logical points, which
+    // produced a points-sized swapchain composited into a pixels-sized Metal layer -
+    // the game rendered 1:1 in the top-left corner. Query the real pixel size instead.
+    if (!SDL_GetWindowSizeInPixels(window, &w, &h))
+      Logger::err(str::format("SDL3 WSI: SDL_GetWindowSizeInPixels: ", SDL_GetError()));
 
     if (pWidth)
       *pWidth = uint32_t(w);
