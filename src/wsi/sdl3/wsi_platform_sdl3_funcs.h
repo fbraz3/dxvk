@@ -9,6 +9,7 @@ SDL_PROC(bool, SDL_GetClosestFullscreenDisplayMode, (SDL_DisplayID, int, int, fl
 SDL_PROC(SDL_DisplayID, SDL_GetDisplayForWindow, (SDL_Window*))
 SDL_PROC(SDL_WindowFlags, SDL_GetWindowFlags, (SDL_Window *))
 SDL_PROC(bool, SDL_GetWindowSize, (SDL_Window*, int*, int*))
+SDL_PROC(bool, SDL_GetWindowSizeInPixels, (SDL_Window*, int*, int*))
 SDL_PROC(bool, SDL_SetWindowSize, (SDL_Window*, int, int))
 SDL_PROC(bool, SDL_SetWindowPosition, (SDL_Window*, int, int))
 SDL_PROC(bool, SDL_SetWindowFullscreen, (SDL_Window*, bool))
